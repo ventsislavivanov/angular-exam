@@ -1,1 +1,169 @@
-<p>sign-up works!</p>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card shadow-sm p-4 bg-dark-subtle" style="max-width: 600px; width: 100%;">
+    <h3 class="text-center mb-4">Sign up user</h3>
+
+    <form [formGroup]="signUpForm"
+          (ngSubmit)="onSubmit()"
+    >
+      <div class="row">
+        <div class="col-md-12">
+          <app-form-field
+            label="Full Name"
+            name="fullName"
+            [icon]="faUser"
+            [errors]="getErrors('fullName')"
+          >
+            <input formControlName="fullName"
+                   type="text"
+                   placeholder="Full Name"
+                   class="form-control"
+                   [class.is-invalid]="getErrors('fullName').length > 0" />
+          </app-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <app-form-field
+            label="Email"
+            name="email" [icon]="faEnvelope"
+            [errors]="getErrors('email')"
+          >
+            <input formControlName="email"
+                   type="email"
+                   placeholder="Email"
+                   class="form-control"
+                   [class.is-invalid]="getErrors('email').length > 0"
+            >
+          </app-form-field>
+        </div>
+      </div>
+
+      <div formGroupName="passwords" class="row">
+        <div class="col-md-6">
+          <app-form-field
+            label="Password"
+            name="password"
+            [icon]="faUnlock"
+            [errors]="getErrors('passwords.password')"
+          >
+            <input formControlName="password"
+         type="password"
+                   placeholder="Password..."
+                   class="form-control"
+                   [class.is-invalid]="getErrors('passwords.password').length > 0"
+            >
+          </app-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <app-form-field
+            label="Confirm Password"
+            name="confirmPassword"
+            [icon]="faUnlockKeyhole"
+            [errors]="getErrors('passwords.confirmPassword')"
+          >
+            <input formControlName="confirmPassword"
+                   type="password" placeholder="Confirm password..."
+                   class="form-control"
+                   [class.is-invalid]="getErrors('passwords.confirmPassword').length > 0"
+            >
+          </app-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <app-form-field
+            label="PIN"
+            name="pin"
+            [icon]="faIdCard"
+            [errors]="getErrors('pin')"
+          >
+            <input formControlName="pin"
+                   type="text"
+                   placeholder="Personal identification number (EGN)"
+                   (input)="onPinChange()"
+                   class="form-control"
+                   [class.is-invalid]="getErrors('pin').length > 0"
+            >
+          </app-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <app-form-field
+            label="Phone"
+            name="phone"
+            [icon]="faPhoneVolume"
+            [errors]="getErrors('phone')"
+          >
+            <select class="form-select" style="max-width: 120px;">
+              <option value="+359">+359</option>
+              <option value="+971">+971</option>
+              <option value="+972">+972</option>
+              <option value="+198">+198</option>
+              <option value="+701">+701</option>
+            </select>
+            <input formControlName="phone"
+                   type="text"
+                   placeholder="Phone number"
+                   class="form-control"
+                   [class.is-invalid]="getErrors('phone').length > 0"
+            >
+          </app-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <app-form-field
+                label="Address"
+                name="address"
+                [icon]="faLocationPin"
+                [errors]="getErrors('address')"
+              >
+                <input formControlName="address"
+                       type="text"
+                       placeholder="Address"
+                       class="form-control"
+                       [class.is-invalid]="getErrors('address').length > 0"
+                >
+              </app-form-field>
+            </div>
+
+            <div class="col-md-12">
+              <app-form-field
+                label="Date of Birth"
+                name="dob"
+                [icon]="faCalendar"
+                [disabled]="true"
+              >
+                <input formControlName="dob"
+                       type="text"
+                       placeholder="Date of Birth"
+                       class="form-control"
+                >
+              </app-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <app-radio-group
+            name="Gender"
+            [options]="genderOptions"
+            (radioValue)="onChangeGender($event)"
+          ></app-radio-group>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="signUpForm.invalid"
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</div>

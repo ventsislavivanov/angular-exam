@@ -1,0 +1,21 @@
+<div class="mb-3">
+  <label [attr.for]="name" class="form-label">
+    {{ name | titlecase }}
+  </label>
+  <br />
+
+  @for (option of options; track option) {
+    <input
+      type="radio"
+      class="form-check-input"
+      [attr.id]="option"
+      [attr.name]="name"
+      [value]="option"
+      (change)="radioValue.emit(option)"
+    >
+    <label [attr.for]="option" class="form-check-label">
+      {{ option | titlecase }}
+    </label>
+    <br />
+  }
+</div>

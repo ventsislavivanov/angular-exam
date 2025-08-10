@@ -19,9 +19,7 @@ export class Login {
 
   private formBuilder = inject(FormBuilder);
 
-  constructor() {}
-
-  loginForm : FormGroup= this.formBuilder.group({
+  loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(3)]],
   });
