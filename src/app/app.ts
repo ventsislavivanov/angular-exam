@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './shared/components';
-import { Footer } from './shared/components';
+import { Header, Footer} from './shared/components';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({

@@ -1,0 +1,39 @@
+<fieldset
+  [disabled]="disabled"
+  class="form-group mb-3"
+>
+  @if (label) {
+    <label
+      [attr.for]="name"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+  }
+
+  <div class="input-group">
+    @if (icon) {
+      <span
+        class="input-group-text"
+      >
+      <fa-icon [icon]="icon"></fa-icon>
+    </span>
+    }
+
+    <ng-content></ng-content>
+
+    @if (errors.length > 0) {
+      @for (error of errors;  track error)  {
+        <div
+          class="invalid-feedback"
+        >
+          {{ error.$message }}
+        </div>
+      }
+    }
+
+    <div class="valid-feedback">
+      Success! You've done it.
+    </div>
+  </div>
+</fieldset>
