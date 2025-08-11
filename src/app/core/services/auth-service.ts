@@ -1,38 +1,27 @@
-import { inject, Injectable, signal } from '@angular/core';
-// import { HttpClient, HttpParams } from '@angular/common/http';
-// import { RequestToken } from '../../model/request-token.model';
-// import { apiKey, apiUrl } from '../../shared/constants';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { RequestToken } from '../../model/request-token.model';
+import { apiKey, apiUrl } from '../../shared/constants';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  // private http: HttpClient = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
-  // generationRequestToken() {
-  //   const params = new HttpParams().set('api_key', apiKey);
-  //   return this.http.get<RequestToken>(
-  //     `${apiUrl}/authentication/token/new`,
-  //     { params }
-  //   );
-  // }
-  //
-  // createSession(requestToken: string) {
-  //   const params = new HttpParams().set('api_key', apiKey);
-  //   return this.http.post<{ success: boolean; session_id: string }>(
-  //     `${apiUrl}/authentication/session/new`,
-  //     { request_token: requestToken },
-  //     { params }
-  //   );
-  // }
-  //
-  // deleteSession(sessionId: string) {
-  //   const params = new HttpParams().set('api_key', apiKey);
-  //   return this.http.delete<{ success: boolean }>(
-  //     `${apiUrl}/authentication/session`,
-  //     { body: { session_id: sessionId }, params }
-  //   );
-  // }
+  generationRequestToken(): Observable<RequestToken> {
+     return this.http.get<RequestToken>(
+      `${apiUrl}authentication/token/new?${apiKey}`
+    );
+  }
+
+  deleteSession(sessionId: string | null): Observable<any> {
+    return this.http.delete(
+      `${apiUrl}authentication/session?${apiKey}`,
+      { body: { session_id: sessionId } }
+    );
+  }
 
 }
