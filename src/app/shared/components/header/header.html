@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" >
-      Movie finder
-    </a>
+    <a class="navbar-brand" routerLink="dashboard">Movie finder</a>
 
     <button
       class="navbar-toggler"
@@ -18,12 +16,22 @@
 
     <div id="navbarColor01" class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
-        <li></li>
+        @for (link of links; track link) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="'/' + link.path"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >{{ link.label }}</a
+            >
+          </li>
+        }
       </ul>
 
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="btn btn-outline-light btn-lg" role="button">
+          <a routerLink="/login" class="btn btn-outline-light btn-lg" role="button">
             Log In
           </a>
         </li>

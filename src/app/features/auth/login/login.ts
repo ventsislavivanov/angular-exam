@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FormField } from '../../../shared/components';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [
     ReactiveFormsModule,
     FormField,
-
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -18,6 +19,7 @@ export class Login {
   faLock = faLock;
 
   private formBuilder = inject(FormBuilder);
+  private router = inject(Router);
 
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
