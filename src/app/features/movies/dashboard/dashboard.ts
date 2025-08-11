@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { MovieService } from '../../../core/services';
 import { Movie } from '../../../models';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
   pageTitle: string = "Dashboard";
   populateMovies: Movie[] = [];
   inTheaterMovies: Movie[] = [];
@@ -20,9 +20,10 @@ export class Dashboard implements OnInit {
   bestDramaMovies: Movie[] = [];
 
   private movieService: MovieService = inject(MovieService);
+  private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
-    forkJoin({
+    const sub: Subscription = forkJoin({
       popular: this.movieService.getPopularMovies(),
       inTheater: this.movieService.getInTheaterMovies(),
       kids: this.movieService.getKidsMovies(),
@@ -43,5 +44,10 @@ export class Dashboard implements OnInit {
         console.error('Failed to load dashboard data', err);
       }
     });
+
+    this.subscriptions.add(sub);
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
