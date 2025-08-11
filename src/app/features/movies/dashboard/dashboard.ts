@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import {TitleCasePipe} from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { MovieService } from '../../../core/services';
+import { Movie } from '../../../models';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +12,36 @@ import {TitleCasePipe} from '@angular/common';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
   pageTitle: string = "Dashboard";
+  populateMovies: Movie[] = [];
+  inTheaterMovies: Movie[] = [];
+  kidsMovies: Movie[] = [];
+  bestDramaMovies: Movie[] = [];
+
+  private movieService: MovieService = inject(MovieService);
+
+  ngOnInit(): void {
+    forkJoin({
+      popular: this.movieService.getPopularMovies(),
+      inTheater: this.movieService.getInTheaterMovies(),
+      kids: this.movieService.getKidsMovies(),
+      drama: this.movieService.getBestDramaMovies()
+    }).subscribe({
+      next: ({ popular, inTheater, kids, drama }: {
+        popular: { results: Movie[] };
+        inTheater: { results: Movie[] };
+        kids: { results: Movie[] };
+        drama: { results: Movie[] };
+      }) => {
+        this.populateMovies = popular.results.slice(0, 6);
+        this.inTheaterMovies = inTheater.results.slice(0, 6);
+        this.kidsMovies = kids.results.slice(0, 6);
+        this.bestDramaMovies = drama.results.slice(0, 6);
+      },
+      error: (err) => {
+        console.error('Failed to load dashboard data', err);
+      }
+    });
+  }
 }

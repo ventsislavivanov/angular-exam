@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RequestToken } from '../../model/request-token.model';
+import { RequestToken } from '../../models';
 import { apiKey, apiUrl } from '../../shared/constants';
 import {Observable} from 'rxjs';
 

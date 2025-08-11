@@ -4,7 +4,7 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FormField } from '../../../shared/components';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services';
-import { RequestToken } from '../../../model/request-token.model';
+import { RequestToken } from '../../../models';
 import { Store } from '@ngrx/store';
 import { loginSuccess } from '../../../core/store/auth/auth.actions';
 

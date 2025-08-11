@@ -12,17 +12,21 @@ export const routes: Routes = [
     loadComponent: () => import('./features/movies/dashboard/dashboard').then(c => c.Dashboard)
   },
   {
+    path: 'movie-details/:id',
+    loadComponent: () => import('./features/movies/movie-details/movie-details').then(c => c.MovieDetails)
+  },
+  {
+    path: 'favorite-movies',
+    loadComponent: () => import('./features/movies/favorites/favorites').then(c => c.Favorites),
+    canActivate: [authGuard]
+  },
+  {
     path: 'about-us',
     loadComponent: () => import('./features/about-us/about-us').then(c => c.AboutUs)
   },
   {
     path: 'contact-us',
     loadComponent: () => import('./features/contact-us/contact-us').then(c => c.ContactUs)
-  },
-  {
-    path: 'favorite-movies',
-    loadComponent: () => import('./features/movies/favorites/favorites').then(c => c.Favorites),
-    canActivate: [authGuard]
   },
   {
     path: 'login',
