@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './shared/components';
+import {authGuard} from './core/guards/auth-guard';
 export const routes: Routes = [
   {
     path: '',
@@ -17,6 +18,11 @@ export const routes: Routes = [
   {
     path: 'contact-us',
     loadComponent: () => import('./features/contact-us/contact-us').then(c => c.ContactUs)
+  },
+  {
+    path: 'favorite-movies',
+    loadComponent: () => import('./features/movies/favorites/favorites').then(c => c.Favorites),
+    canActivate: [authGuard]
   },
   {
     path: 'login',
