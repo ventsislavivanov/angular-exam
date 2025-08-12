@@ -3,11 +3,14 @@ import { TitleCasePipe } from '@angular/common';
 import { MovieService } from '../../../core/services';
 import { Movie } from '../../../models';
 import { forkJoin, Subscription } from 'rxjs';
+import { MovieCard } from '../';
+
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    TitleCasePipe
+    TitleCasePipe,
+    MovieCard
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'

@@ -22,8 +22,8 @@ export class Header {
   ]
 
   private authService: AuthService = inject(AuthService);
-  private router = inject(Router);
-  private store = inject(Store);
+  private router: Router = inject(Router);
+  private store: Store = inject(Store);
 
   isLoggedIn$ = this.store.select(selectIsLoggedIn);
 
