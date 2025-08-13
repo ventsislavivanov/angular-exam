@@ -1,1 +1,33 @@
-<p>movie-details works!</p>
+@if ($movie()) {
+  <div class="container w-50">
+    <h3 class="panel-title mt-5">{{ $movie()?.title }}</h3>
+
+    <img
+      [src]="BASE_IMAGE_URL + IMAGE_RESOLUTION + $movie()?.poster_path"
+      [alt]="$movie()?.title || ''"
+      class="thumbnail"
+      width="100%"
+    />
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          Genres:
+          <span>{{ movieGender }}</span>
+        </li>
+        <li class="list-group-item">Release Date: {{ $movie()?.release_date }}</li>
+        <li class="list-group-item">Overview: {{ $movie()?.overview }}</li>
+
+        @if($movie()?.homepage) {
+          <a
+            [href]="$movie()?.homepage!"
+            target="_blank"
+            class="btn btn-outline-primary mt-2 mb-5"
+            rel="noopener noreferrer"
+          >
+            Visit Movie Website
+          </a>
+        }
+      </ul>
+  </div>
+}
+

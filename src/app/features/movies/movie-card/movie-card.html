@@ -22,7 +22,7 @@
   <div class="card-footer text-muted d-flex justify-content-around">
     <button type="button"
             class="btn btn-info"
-            (click)="viewDetails()"
+            (click)="viewDetails(movie.id)"
     >
       <fa-icon [icon]="faEye"></fa-icon>
     </button>
@@ -32,7 +32,7 @@
       <button type="button"
               class="btn"
 
-              (click)="addFavorite()"
+              (click)="addFavorite(movie.id)"
       >
         <fa-icon [icon]="faHeart"></fa-icon>
       </button>

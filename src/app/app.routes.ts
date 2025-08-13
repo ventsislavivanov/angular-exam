@@ -12,7 +12,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/movies/dashboard/dashboard').then(c => c.Dashboard)
   },
   {
-    path: 'movie-details/:id',
+    path: 'movie/details/:id',
     loadComponent: () => import('./features/movies/movie-details/movie-details').then(c => c.MovieDetails)
   },
   {
