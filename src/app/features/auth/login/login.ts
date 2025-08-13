@@ -4,7 +4,7 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FormField } from '../../../shared/components';
 import { AuthService } from '../../../core/services';
 import { RequestToken } from '../../../models';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +22,7 @@ export class Login {
 
   private authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
 
   usernameValue: string = 'vivanovspam';
   passwordValue: string = 'eUXz5@Zn#0';
@@ -67,10 +68,12 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || undefined;
+
       this.authService.generationRequestToken().subscribe({
         next: (response: RequestToken) => {
           const token = response.request_token;
-          window.location.href = this.authService.buildAuthUrl(token);
+          window.location.href = this.authService.buildAuthUrl(token, returnUrl);
         },
         error: (err: Error) => {
           console.log(err);

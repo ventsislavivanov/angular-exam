@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private redirectUrl = 'http://localhost:4200/approved';
-
   constructor(private http: HttpClient) {}
 
   generationRequestToken(): Observable<RequestToken> {
@@ -18,8 +16,12 @@ export class AuthService {
     );
   }
 
-  buildAuthUrl(requestToken: string): string {
-    return `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${encodeURIComponent(this.redirectUrl)}`;
+  buildAuthUrl(requestToken: string, returnUrl?: string): string {
+    const baseApproved = 'http://localhost:4200/approved';
+    const approvedWithReturn = returnUrl
+      ? `${baseApproved}?returnUrl=${encodeURIComponent(returnUrl)}`
+      : baseApproved;
+    return `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${encodeURIComponent(approvedWithReturn)}`;
   }
 
   // 3. Създаваме session_id след redirect

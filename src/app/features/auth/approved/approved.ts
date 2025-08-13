@@ -15,12 +15,20 @@ export class ApprovedComponent implements OnInit {
   private authService = inject(AuthService);
 
   ngOnInit() {
+
     const requestToken = this.route.snapshot.queryParamMap.get('request_token');
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
     if (requestToken) {
       this.authService.createSession(requestToken).subscribe((response: any) => {
         const { session_id, success } = response;
         this.store.dispatch(loginSuccess({ sessionId: session_id, success }));
-        this.router.navigate(['/dashboard']);
+
+        if (returnUrl) {
+          this.router.navigateByUrl(returnUrl);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       });
     }
   }
