@@ -2,11 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FormField } from '../../../shared/components';
-import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services';
 import { RequestToken } from '../../../models';
-import { Store } from '@ngrx/store';
-import { loginSuccess } from '../../../core/store/auth/auth.actions';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,18 +22,17 @@ export class Login {
 
   private authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
-  private router = inject(Router);
-  private store = inject(Store);
 
-  token: string|null = null;
+  usernameValue: string = 'vivanovspam';
+  passwordValue: string = 'eUXz5@Zn#0';
 
   loginForm: FormGroup = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(3)]],
+    username: [this.usernameValue, [Validators.required]],
+    password: [this.passwordValue, [Validators.required, Validators.minLength(3)]],
   });
 
-  get emailErrors() {
-    const control = this.loginForm.get('email');
+  get usernameErrors() {
+    const control = this.loginForm.get('username');
     if (control?.touched && control.invalid) {
       return Object.keys(control.errors || {}).map((key, i) => ({
         $uid: i,
@@ -49,7 +46,7 @@ export class Login {
   private getErrorMessage(errorKey: string, errorValue: any): string {
     const messages: any = {
       required: 'This field is required',
-      email: 'Please enter a valid email',
+      username: 'Please enter a valid username',
       minlength: `Minimum length is ${errorValue?.requiredLength}`
     };
 
@@ -70,32 +67,15 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
-
-
       this.authService.generationRequestToken().subscribe({
         next: (response: RequestToken) => {
-          // 1. get token
           const token = response.request_token;
-
-          // 2. confirm app from user
-          // alert(`https://www.themoviedb.org/authenticate/${token}`);
-
-          // 3. login in site
-          // allow
-          // get header Authentication-Callback from response
-          // {"success":true,"session_id":"66f767bd2b8684131148af9f1fa55ac55f84369a"}
-          const sessionId = 'cf1a055cd7ec689a01348eac08c4dd06e7927892';
-          const success = true;
-          this.store.dispatch(loginSuccess({ sessionId, success }));
-
-          this.router.navigate(['/dashboard']);
+          window.location.href = this.authService.buildAuthUrl(token);
         },
         error: (err: Error) => {
           console.log(err);
         }
       });
-
-
     }
   }
 }

@@ -5,18 +5,18 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
       <app-form-field
-        label="Email"
-        name="email"
+        label="Username"
+        name="username"
         [icon]="faUser"
-        [errors]="emailErrors"
+        [errors]="usernameErrors"
       >
         <input
-          formControlName="email"
-          type="email"
-          placeholder="Please enter email..."
+          formControlName="username"
+          type="text"
+          placeholder="Please enter username..."
           class="form-control"
-          [class.is-invalid]="emailErrors.length > 0"
-          [class.is-valid]="emailErrors.length === 0 && loginForm.get('email')?.touched"
+          [class.is-invalid]="usernameErrors.length > 0"
+          [class.is-valid]="usernameErrors.length === 0 && loginForm.get('username')?.touched"
         />
       </app-form-field>
 

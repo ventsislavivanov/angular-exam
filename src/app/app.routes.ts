@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './shared/components';
-import {authGuard} from './core/guards/auth-guard';
+import { authGuard } from './core/guards/auth-guard';
+import { ApprovedComponent } from './features/auth/approved/approved';
 export const routes: Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
+  },
+  { path: 'approved',
+    component: ApprovedComponent
   },
   {
     path: 'dashboard',

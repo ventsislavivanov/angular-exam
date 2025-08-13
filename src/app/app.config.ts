@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
@@ -10,13 +10,16 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { authReducer, authFeatureKey } from './core/store/auth/auth.reducer';
 import { AuthEffects } from './core/store/auth/auth.effects';
+import {AuthenticationInterceptor} from './core/interceptors/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([AuthenticationInterceptor])
+    ),
 
     provideStore({
       [authFeatureKey]: authReducer,
