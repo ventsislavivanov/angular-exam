@@ -38,4 +38,10 @@ export class MovieService {
       `${apiUrl}movie/${id}?${apiKey}`
     );
   }
+
+  getSearchMovie(query: string): Observable<any> {
+    return this.http.get<any>(
+      `${apiUrl}search/movie?${apiKey}&query=${query}`
+    );
+  }
 }

@@ -16,6 +16,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/movies/movie-details/movie-details').then(c => c.MovieDetails)
   },
   {
+    path: 'search-movie/:query',
+    loadComponent: () => import('./features/movies/search-movie/search-movie').then(c => c.SearchMovie)
+  },
+  {
     path: 'favorite-movies',
     loadComponent: () => import('./features/movies/favorites/favorites').then(c => c.Favorites),
     canActivate: [authGuard]

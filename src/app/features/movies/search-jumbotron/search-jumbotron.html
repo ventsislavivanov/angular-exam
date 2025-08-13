@@ -1,0 +1,36 @@
+<div class="jumbotron">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="p-5 content">
+      <h1 class="display-4 text-light">
+        {{ title }}
+      </h1>
+
+      <p class="lead text-center">
+        {{ description }}
+      </p>
+
+      <hr class="my-4" />
+
+      <p class="text-center">
+        {{ callToAction }}
+      </p>
+
+      <form class="form d-flex" (ngSubmit)="onSearch()">
+        <input
+          [formControl]="searchCtrl"
+          class="form-control me-sm-2"
+          type="search"
+          placeholder="Search"
+        />
+        <button
+          [disabled]="searchCtrl.invalid"
+          class="btn btn-light my-2 my-sm-0"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

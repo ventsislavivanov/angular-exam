@@ -1,0 +1,13 @@
+<div class="container">
+  <h2 class="pt-2">
+    Results for: {{ query }}
+  </h2>
+
+  <div class="row">
+    @for (movie of $searchResults(); track movie.id) {
+      <div class="col-lg-2 pt-2 pb-2">
+        <app-movie-card [movie]="movie"></app-movie-card>
+      </div>
+    }
+  </div>
+</div>
